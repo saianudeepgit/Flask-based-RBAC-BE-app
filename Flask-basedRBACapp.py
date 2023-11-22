@@ -6,9 +6,9 @@ from flask_principal import Principal, RoleNeed, identity_loaded, UserNeed
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rbac_example.db'
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this to a secure key in production
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False  # Tokens never expire for this example
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable modification tracking as it is not needed for this example
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # should put a secure key
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False  
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
@@ -26,7 +26,7 @@ class EmployeeModel(db.Model):
     organization_id = db.Column(db.Integer, db.ForeignKey('organisation_model.id'))
     organization = db.relationship('OrganisationModel', backref='employees')
 
-# Initialize the database
+# initialize the database
 db.create_all()
 
 # Roles
@@ -44,21 +44,21 @@ def on_identity_loaded(sender, identity):
         for role in user.roles:
             identity.provides.add(RoleNeed(role.name))
 
-# Resource for Object 1
+# Object 1 resource
 class OrganisationResource(Resource):
     @jwt_required()
     def get(self, org_id):
         organisation = OrganisationModel.query.get_or_404(org_id)
         return {'id': organisation.id, 'name': organisation.name}
 
-# Resource for Object 2
+# Object 2 resource
 class EmployeeResource(Resource):
     @jwt_required()
     def get(self, emp_id):
         employee = EmployeeModel.query.get_or_404(emp_id)
         return {'id': employee.id, 'name': employee.name, 'organization_id': employee.organization_id}
 
-# CRUD Operations for Object 1
+# CRUD operations for object 1
 class OrganisationCRUDResource(Resource):
     @jwt_required()
     @principal.require(admin_role)
@@ -95,7 +95,7 @@ class OrganisationCRUDResource(Resource):
 
         return {'message': 'Organisation deleted'}
 
-# CRUD Operations for Object 2
+# CRUD operations for object 2
 class EmployeeCRUDResource(Resource):
     @jwt_required()
     @principal.require(admin_role)
@@ -135,7 +135,7 @@ class EmployeeCRUDResource(Resource):
 
         return {'message': 'Employee deleted'}
 
-# Add API routes
+# API routes
 api.add_resource(OrganisationResource, '/organisation/<int:org_id>')
 api.add_resource(EmployeeResource, '/employee/<int:emp_id>')
 api.add_resource(OrganisationCRUDResource, '/organisation')
