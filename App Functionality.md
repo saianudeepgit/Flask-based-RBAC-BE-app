@@ -1,4 +1,4 @@
-# _Flask-based-RBAC-BE-app_ 
+# _Flask-based-RBAC-BE-app_ { Codeathon Task }
 
 # Role Based Access Control Enabled BE with following functions
 
@@ -9,7 +9,7 @@ Created 2 Object Models
   2nd Object  - Employee
 
 Created Relationship of these Objects
-Store & Manage these Object Model on SQLite Instance
+Then store and manage these object model on SQLite instance
 
 # Secure this REST API using JWT authentication
 
