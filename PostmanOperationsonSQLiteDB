@@ -1,29 +1,23 @@
 Send a POST request to http://localhost:5000/login with the following JSON body:
-
-json
-
+    json
     {
       "username": "admin",
       "password": "admin_password"
     }
-
-    This will return a JWT token in the response. Copy the token for subsequent requests.
-
+This will return a JWT token in the response. Copy the token for subsequent requests.
 Create an Organisation:
 
-    Send a POST request to http://localhost:5000/organisation with the following JSON body:
-
+Send a POST request to http://localhost:5000/organisation with the following JSON body:
     json
 
     {
       "name": "New Organisation"
     }
 
-    Set the Authorization header with the token obtained in step 1.
-
+Set the Authorization header with the token obtained in step 1.
 Update the Organisation:
 
-    Send a PUT request to http://localhost:5000/organisation/<org_id> (replace <org_id> with the actual ID of the organisation you created in step 2) with the following JSON body:
+Send a PUT request to http://localhost:5000/organisation/<org_id> (replace <org_id> with the actual ID of the organisation you created in step 2) with the following JSON body:
 
     json
 
@@ -33,16 +27,12 @@ Update the Organisation:
 
         Set the Authorization header with the token obtained in step 1.
 
-    Get Organisation Details:
-
-        Send a GET request to http://localhost:5000/organisation/<org_id> to retrieve details about the organisation.
-
-        Set the Authorization header with the token obtained in step 1.
+Get Organisation Details:
+Send a GET request to http://localhost:5000/organisation/<org_id> to retrieve details about the organisation.
+Set the Authorization header with the token obtained in step 1.
 
     Delete the Organisation:
-
-        Send a DELETE request to http://localhost:5000/organisation/<org_id> to delete the organisation.
-
-        Set the Authorization header with the token obtained in step 1.
+Send a DELETE request to http://localhost:5000/organisation/<org_id> to delete the organisation.
+Set the Authorization header with the token obtained in step 1.
 
 Repeat these steps for the Employee object by using the /employee endpoint.
